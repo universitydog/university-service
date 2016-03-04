@@ -1,24 +1,26 @@
 package com.orm;
+
 /**
  * ÎÄÕÂ
+ * 
  * @author ÌÆÌ«Ã÷
  *
  */
 public class Article {
 
 	private Integer id;
-	
+
 	private String title;
-	
+
 	private String titleDate;
-	
+
 	private String inputDate;
-	
+
 	private String url;
-	
+
 	private String writer;
-	
-	private String writerId;
+
+	private Integer writerId;
 
 	public Integer getId() {
 		return id;
@@ -68,12 +70,12 @@ public class Article {
 		this.writer = writer;
 	}
 
-	public String getWriterId() {
+	public Integer getWriterId() {
 		return writerId;
 	}
 
-	public void setWriterId(String writerId) {
+	public void setWriterId(Integer writerId) {
 		this.writerId = writerId;
 	}
-	
+
 }

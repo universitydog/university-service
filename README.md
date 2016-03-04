@@ -1,2 +1,2 @@
 # university-service
-Service [CRUD] æ“ä½œ
+Service [CRUD] ²Ù×÷

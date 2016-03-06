@@ -4,7 +4,7 @@ package com.orm;
  * 文章
  * 
  * @author 唐太明
- *
+ * @category 实体
  */
 public class Article {
 
@@ -18,9 +18,11 @@ public class Article {
 
 	private String url;
 
-	private String writer;
-
-	private Integer writerId;
+	private Integer type;
+	
+	private String tags;
+	
+	private String authorId;
 
 	public Integer getId() {
 		return id;
@@ -62,20 +64,29 @@ public class Article {
 		this.url = url;
 	}
 
-	public String getWriter() {
-		return writer;
+	public Integer getType() {
+		return type;
 	}
 
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
-	public Integer getWriterId() {
-		return writerId;
+	public String getTags() {
+		return tags;
 	}
 
-	public void setWriterId(Integer writerId) {
-		this.writerId = writerId;
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
+	public String getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(String authorId) {
+		this.authorId = authorId;
+	}
+	
+	
 }

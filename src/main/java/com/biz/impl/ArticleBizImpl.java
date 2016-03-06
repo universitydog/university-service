@@ -35,7 +35,8 @@ public class ArticleBizImpl implements ArticleBiz {
 			Article art = (Article) Json.fromJson(data, Article.class);
 			isDelete = articleDao.addArticle(art);
 		}
-		return false;
+		
+		return isDelete;
 	}
 
 	public boolean updateArticle(Map<String, Object> request) {

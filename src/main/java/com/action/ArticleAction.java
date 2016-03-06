@@ -12,7 +12,7 @@ import com.ttm.service.ServiceResponse;
 public class ArticleAction {
 
 	public ServiceResponse text(HttpServletRequest request) {
-		request.getHeader("");
+		request.getHeader("dfsdfsdffsf");
 		return null;
 	}
 	

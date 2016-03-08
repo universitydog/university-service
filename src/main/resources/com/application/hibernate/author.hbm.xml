@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" > 
+<hibernate-mapping>  
+    <!--生成默认为user的数据库表-->  
+    <class name ="com.orm.Author" table="test.tb_author">  
+        <id name ="id" type="string" >
+            <generator class="assigned"></generator>
+        </id> 
+        <property name ="realName" type="string" not-null="true"></property>  
+        <property name ="nickName" type="string" not-null="true"></property>
+        <property name ="introduce" type="string" not-null="true"></property>
+        <property name ="rank" type="int" not-null="true"></property>
+        <property name ="love" type="int" not-null="true"></property>
+        <property name ="createTime" type="string" not-null="true"></property>
+        <property name ="imgurl" type="string" not-null="true"></property>
+        
+        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
+        <many-to-one name="typeId" class="com.orm.Type" column="typeId" unique="true" />
+    	<!-- authorId属性，表达的是本对象（Author）与Article的一对一的关系-->
+<!--     	<one-to-one name="article" class="com.orm.Article" property-ref="authorId" /> -->
+    </class > 
+</hibernate-mapping>

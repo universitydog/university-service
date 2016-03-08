@@ -1,28 +1,28 @@
 package com.orm;
 
 /**
- * ÎÄÕÂ
+ * æ–‡ç« 
  * 
- * @author ÌÆÌ«Ã÷
- * @category ÊµÌå
+ * @author å”å¤ªæ˜
+ * @category å®ä½“
  */
 public class Article {
 
-	private Integer id;
-
+private Integer id;
+	
 	private String title;
-
+	
 	private String titleDate;
-
+	
 	private String inputDate;
-
+	
 	private String url;
-
-	private Integer type;
 	
 	private String tags;
 	
-	private String authorId;
+	private Type typeId;
+	
+	private Author authorId;
 
 	public Integer getId() {
 		return id;
@@ -64,14 +64,6 @@ public class Article {
 		this.url = url;
 	}
 
-	public Integer getType() {
-		return type;
-	}
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
 	public String getTags() {
 		return tags;
 	}
@@ -80,13 +72,20 @@ public class Article {
 		this.tags = tags;
 	}
 
-	public String getAuthorId() {
+	public Type getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Type typeId) {
+		this.typeId = typeId;
+	}
+
+	public Author getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(String authorId) {
+	public void setAuthorId(Author authorId) {
 		this.authorId = authorId;
 	}
-	
-	
+
 }

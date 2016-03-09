@@ -20,6 +20,4 @@ public interface ArticleDao {
 	public abstract List<Article> findByList(Map<String, Object> request, Map<String, Object> sort,
 			Map<String, Integer> pageing);
 
-
-
 }

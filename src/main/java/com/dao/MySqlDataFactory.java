@@ -12,6 +12,12 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+/**
+ * MySql 数据库操作基类
+ * @author 唐太明
+ * @category 数据库操作
+ *
+ */
 public class MySqlDataFactory {
 	
 	private Class<?> name;
@@ -30,6 +36,13 @@ public class MySqlDataFactory {
 		this.name = name;
 	}
 
+	/**
+	 * 分页查询数据
+	 * @param query 查询条件
+	 * @param sort 排序方式
+	 * @param pageing 分页方式
+	 * @return
+	 */
 	public List<?> findToListLimit(Map<String, Object> query, Map<String, Object> sort, Map<String, Integer> pageing) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -39,17 +52,17 @@ public class MySqlDataFactory {
 			session = sf.openSession();
 			criteria = session.createCriteria(name);
 			
-			//����
+			//查询条件
 			if (!(query == null || query.isEmpty())) {
 				criteria.add(Restrictions.allEq(query));
 			}
-			//��ҳ
+			//分页条件
 			if (!(pageing == null || pageing.isEmpty())) {
-				int pageNumber = (pageing.get("pageNumber") - 1) * pageing.get("pageResults");
+				int pageNumber = (pageing.get("page") - 1) * pageing.get("size");
 				criteria.setFirstResult(pageNumber);
-				criteria.setMaxResults(pageing.get("pageResults"));
+				criteria.setMaxResults(pageing.get("size"));
 			}
-			//����
+			//排序条件
 			if (!(sort == null || sort.isEmpty())) {
 				for (String key : sort.keySet()) {
 					String value = (String) sort.get(key);
@@ -73,6 +86,11 @@ public class MySqlDataFactory {
 		return list;
 	}
 	
+	/**
+	 * 条件查询集合数据
+	 * @param query 查询条件
+	 * @return 数据集合
+	 */
 	public List<?> findToList(Map<String, Object> query) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -100,6 +118,11 @@ public class MySqlDataFactory {
 		return list;
 	}
 	
+	/**
+	 * Long类型 ID 查询数据
+	 * @param id 类型为Long的Id
+	 * @return Object对象
+	 */
 	public Object findById(Long id) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -122,6 +145,11 @@ public class MySqlDataFactory {
 		return obj;
 	}
 	
+	/**
+	 * String类型 ID 查询数据
+	 * @param id 类型为String的Id
+	 * @return Object对象
+	 */
 	public Object findById(String id) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -144,6 +172,11 @@ public class MySqlDataFactory {
 		return obj;
 	}
 	
+	/**
+	 * int 类型 ID 查询数据
+	 * @param id 类型为 int 的Id
+	 * @return Object对象
+	 */
 	public Object findById(int id) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -166,6 +199,11 @@ public class MySqlDataFactory {
 		return obj;
 	}
 	
+	/**
+	 * 多条件查询数据
+	 * @param query 查询Map
+	 * @return Object对象
+	 */
 	public Object find(Map<String, Object> query) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -193,6 +231,11 @@ public class MySqlDataFactory {
 		return obj;
 	}
 	
+	/**
+	 * 保存对象
+	 * @param obj 对应注入对象
+	 * @return true 保存成功/false 保存失败
+	 */
 	public boolean save(Object obj) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -219,6 +262,11 @@ public class MySqlDataFactory {
 		return isSave > 0 ? true : false;
 	}
 	
+	/**
+	 * 修改对象
+	 * @param obj 对应注入对象
+	 * @return true 修改成功/false 修改失败
+	 */
 	public boolean update(Object obj) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
@@ -245,6 +293,11 @@ public class MySqlDataFactory {
 		return isUpdate;
 	}
 	
+	/**
+	 * 删除对象
+	 * @param obj 对应注入对象
+	 * @return true 删除成功/false 删除失败
+	 */
 	public boolean delete(Object obj) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;

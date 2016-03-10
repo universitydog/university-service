@@ -4,7 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.orm.Article;
-
+/**
+ * 
+ * <p>介绍:文章业务接口</p>
+ * @author 唐太明
+ * @date 2016年3月10日 下午11:29:40
+ * @version 1.0
+ */
 public interface ArticleBiz {
 
 	public abstract boolean addArticle(Map<String, Object> request);

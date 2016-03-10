@@ -8,7 +8,13 @@ import com.dao.ArticleDao;
 import com.orm.Article;
 import com.ttm.util.Json;
 import com.util.CollectionUtils;
-
+/***
+ * 
+ * <p>介绍 业务逻辑层实现类</p>
+ * @author 唐太明
+ * @date 2016年3月10日 下午11:28:43
+ * @version 1.0
+ */
 public class ArticleBizImpl implements ArticleBiz {
 
 	private ArticleDao articleDao;

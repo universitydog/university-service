@@ -46,7 +46,7 @@ public class ArticleBizImpl implements ArticleBiz {
 	}
 
 	public boolean updateArticle(Map<String, Object> request) {
-		// TODO Auto-generated method stub
+		System.out.println("updateAi-------------------");
 		return false;
 	}
 
@@ -68,6 +68,10 @@ public class ArticleBizImpl implements ArticleBiz {
 	//*****************************************************************************************
 	public void setArticleDao(ArticleDao articleDao) {
 		this.articleDao = articleDao;
+	}
+
+	public ArticleDao getArticleDao() {
+		return articleDao;
 	}
 
 }

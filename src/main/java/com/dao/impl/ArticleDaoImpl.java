@@ -8,14 +8,12 @@ import com.dao.MySqlDataFactory;
 import com.orm.Article;
 
 @SuppressWarnings("unchecked")
-public class ArticleDaoImpl extends MySqlDataFactory implements ArticleDao {
+public class ArticleDaoImpl implements ArticleDao {
 
-	public ArticleDaoImpl(Class<?> name) {
-		super(name);
-	}
-
+	private MySqlDataFactory mysqlFactory = new MySqlDataFactory(Article.class);
+	
 	public boolean addArticle(Article art) {
-		return save(art);
+		return mysqlFactory.save(art);
 	}
 
 	public boolean deleteArticle(Integer id) {
@@ -23,24 +21,25 @@ public class ArticleDaoImpl extends MySqlDataFactory implements ArticleDao {
 		if (art == null) {
 			return false;
 		} else {
-			return delete(art);
+			return mysqlFactory.delete(art);
 		}
 	}
 
 	public boolean updateArticle(Article art) {
-		return update(art);
+		System.out.println("~~~~~~~~~~~~~~~~~~~");
+		return mysqlFactory.update(art);
 	}
 
 	public Article findById(Integer id) {
-		return (Article) super.findById(id);
+		return (Article) mysqlFactory.findById(id);
 	}
 
 	public Article findByMany(Map<String, Object> request) {
-		return (Article) find(request);
+		return (Article) mysqlFactory.find(request);
 	}
 
 	public List<Article> findByList(Map<String, Object> request, Map<String, Object> sort, Map<String, Integer> pageing) {
-		return (List<Article>) findToListLimit(request, sort, pageing);
+		return (List<Article>) mysqlFactory.findToListLimit(request, sort, pageing);
 	}
 
 }

@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.biz.ArticleBiz;
+import com.ttm.service.ServiceResponse;
+import com.ttm.util.Dumper;
 
 /***
  * <p>介绍 表现层</p>
@@ -18,10 +23,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("a")
 public class ArticleAction {
 	
-	@RequestMapping(value = "article", method = RequestMethod.GET)
-	public String saveAriticle(@RequestHeader("token") String token, @RequestBody Map<String, Object> request) {
+	private ServiceResponse service = new ServiceResponse();
+	
+	private ArticleBiz articleBiz;
+	
+	/**
+	 * 保存文章
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "article", method = RequestMethod.POST)
+	@ResponseBody
+	public ServiceResponse saveAriticle(@RequestHeader("token") String token, @RequestBody Map<String, Object> request) {
 		
-		return "index";
+		return service;
 	}
 	
 }

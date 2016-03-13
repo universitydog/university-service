@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,10 +12,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * MySql 数据库操作基类
+ * 
+ * <p>介绍：MySql 数据库操作基类</p>
  * @author 唐太明
- * @category 数据库操作
- *
+ * @date 2016年3月13日 下午5:07:25
+ * @version 1.0
  */
 public class MySqlDataFactory {
 	
@@ -75,7 +75,7 @@ public class MySqlDataFactory {
 			}
 			
 			list = criteria.list();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			log.error("findToListLimit way [ " + name.getName() + " ]", e);
 			e.printStackTrace();
 		} finally {
@@ -107,7 +107,7 @@ public class MySqlDataFactory {
 				criteria.add(Restrictions.allEq(query));
 			}
 			list = criteria.list();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			log.error("findToList way [ " + name.getName() + " ]", e);
 			e.printStackTrace();
 		} finally {
@@ -134,7 +134,7 @@ public class MySqlDataFactory {
 			
 			criteria.add(Restrictions.idEq(id));
 			obj = criteria.uniqueResult();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			log.error("findById way [ " + name.getName() + " ]", e);
 			e.printStackTrace();
 		} finally {
@@ -161,7 +161,7 @@ public class MySqlDataFactory {
 			
 			criteria.add(Restrictions.idEq(id));
 			obj = criteria.uniqueResult();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			log.error("findById way [ " + name.getName() + " ]", e);
 			e.printStackTrace();
 		} finally {
@@ -188,7 +188,7 @@ public class MySqlDataFactory {
 			
 			criteria.add(Restrictions.idEq(id));
 			obj = criteria.uniqueResult();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			log.error("findById way [ " + name.getName() + " ]", e);
 			e.printStackTrace();
 		} finally {
@@ -220,7 +220,7 @@ public class MySqlDataFactory {
 				criteria.add(Restrictions.allEq(query));
 			}
 			obj = criteria.uniqueResult();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			log.error("find way [ " + name.getName() + " ]", e);
 			e.printStackTrace();
 		} finally {
@@ -246,7 +246,7 @@ public class MySqlDataFactory {
 			 tr = session.beginTransaction();
 			 isSave = (Integer) session.save(name.getName(), obj);
 			 tr.commit();
-		} catch (HibernateException e) {
+		} catch (Exception e) {
 			log.error("save way [ " + name.getName() + " ]", e);
 			e.printStackTrace();
 			tr.rollback();
@@ -277,7 +277,7 @@ public class MySqlDataFactory {
 			session.update(name.getName(), obj);
 			tr = session.beginTransaction();
 			tr.commit();
-		} catch(HibernateException e) {
+		} catch(Exception e) {
 			isUpdate = false;
 			log.error("update way [" + name.getName() + " ]", e);
 			e.printStackTrace();
@@ -308,7 +308,7 @@ public class MySqlDataFactory {
 			session.delete(name.getName(), obj);
 			tr = session.beginTransaction();
 			tr.commit();
-		} catch(HibernateException e) {
+		} catch(Exception e) {
 			isDelete = false;
 			log.error("delete way [" + name.getName() + " ]", e);
 			e.printStackTrace();

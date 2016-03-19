@@ -1,3 +1,3 @@
 ﻿# university-service
-Service [CRUD] 操作
+Service [CRUD] ii操作
 tc update e

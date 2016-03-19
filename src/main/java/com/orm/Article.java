@@ -8,7 +8,7 @@ package com.orm;
  */
 public class Article {
 
-private Integer id;
+	private Integer id;
 	
 	private String title;
 	
@@ -20,9 +20,9 @@ private Integer id;
 	
 	private String tags;
 	
-	private Type typeId;
+	private Integer typeId;
 	
-	private Author authorId;
+	private String authorId;
 
 	public Integer getId() {
 		return id;
@@ -72,19 +72,19 @@ private Integer id;
 		this.tags = tags;
 	}
 
-	public Type getTypeId() {
+	public Integer getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(Type typeId) {
+	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
 	}
 
-	public Author getAuthorId() {
+	public String getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(Author authorId) {
+	public void setAuthorId(String authorId) {
 		this.authorId = authorId;
 	}
 

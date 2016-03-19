@@ -7,5 +7,6 @@
         <!-- 指定对应数据库的方言，hibernate为了更好适配各种关系数据库，针对每种数据库都指定了一个方言dialect -->  
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>  
         <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
     </session-factory>  
 </hibernate-configuration>

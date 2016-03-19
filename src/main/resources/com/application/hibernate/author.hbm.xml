@@ -15,10 +15,7 @@
         <property name ="love" type="int" not-null="true"></property>
         <property name ="createTime" type="string" not-null="true"></property>
         <property name ="imgurl" type="string" not-null="true"></property>
+	    <property name ="typeId" type="int" not-null="true"></property>    
         
-        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
-        <many-to-one name="typeId" class="com.orm.Type" column="typeId" unique="true" />
-    	<!-- authorId属性，表达的是本对象（Author）与Article的一对一的关系-->
-<!--     	<one-to-one name="article" class="com.orm.Article" property-ref="authorId" /> -->
     </class > 
 </hibernate-mapping>

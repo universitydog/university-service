@@ -16,10 +16,15 @@
 	<mvc:default-servlet-handler/>
 	
 	<mvc:annotation-driven>
-		<mvc:message-converters register-defaults="true">
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
-			</bean>
+		<mvc:message-converters>
+		    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		        <property name="supportedMediaTypes" value="application/json;charset=UTF-8" />
+		        <property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+					    <property name="serializationInclusion" value="NON_NULL" />
+					</bean>           
+		        </property>
+		    </bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 

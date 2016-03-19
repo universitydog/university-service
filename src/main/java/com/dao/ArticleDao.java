@@ -19,5 +19,8 @@ public interface ArticleDao {
 
 	public abstract List<Article> findByList(Map<String, Object> request, Map<String, Object> sort,
 			Map<String, Integer> pageing);
+	
+	public abstract List<Article> findByListSearch(String authorId, String sea, Integer index, Integer length);
 
+	public abstract Object findByListSearchNumber(String authorId, String sea);
 }

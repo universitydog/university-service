@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * 
- * <p>介绍:注册spring的bean文件</p>
+ * <p>介绍:注册spring的bean文件, 用于分层开发</p>
  * @author 唐太明
  * @date 2016年3月13日 下午2:39:14
  * @version 1.0

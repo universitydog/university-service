@@ -13,10 +13,10 @@
         <property name ="inputDate" type="string"></property>
         <property name ="url" type="string"></property>
         <property name ="tags" type="string"></property>
+        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
+        <property name ="typeId" type="int"></property>
+        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
+        <property name ="authorId" type="string"></property>
         
-        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
-        <many-to-one name="typeId" class="com.orm.Type" column="typeId" unique="true" lazy="false" />
-        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
-        <many-to-one name="authorId" class="com.orm.Author" column="authorId" unique="true" lazy="false" />
     </class > 
 </hibernate-mapping>

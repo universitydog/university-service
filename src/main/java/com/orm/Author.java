@@ -9,15 +9,15 @@ public class Author {
 
 	private String introduce;
 
-	private int rank;
+	private Integer rank;
 
-	private int love;
+	private Integer love;
 
 	private String createTime;
 
 	private String imgurl;
 
-	private Type typeId;
+	private Integer typeId;
 
 	public String getId() {
 		return id;
@@ -51,19 +51,19 @@ public class Author {
 		this.introduce = introduce;
 	}
 
-	public int getRank() {
+	public Integer getRank() {
 		return rank;
 	}
 
-	public void setRank(int rank) {
+	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
 
-	public int getLove() {
+	public Integer getLove() {
 		return love;
 	}
 
-	public void setLove(int love) {
+	public void setLove(Integer love) {
 		this.love = love;
 	}
 
@@ -83,11 +83,12 @@ public class Author {
 		this.imgurl = imgurl;
 	}
 
-	public Type getTypeId() {
+	public Integer getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(Type typeId) {
+	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
 	}
+
 }

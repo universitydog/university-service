@@ -1,9 +1,8 @@
 package com.biz;
 
-import java.util.List;
 import java.util.Map;
 
-import com.orm.Article;
+import com.ttm.service.ServiceResponse;
 /**
  * 
  * <p>介绍:文章业务接口</p>
@@ -13,16 +12,18 @@ import com.orm.Article;
  */
 public interface ArticleBiz {
 
-	public abstract boolean addArticle(Map<String, Object> request);
+	public abstract ServiceResponse addArticle(Map<String, Object> request);
 
-	public abstract boolean deleteArticle(Map<String, Object> request);
+	public abstract ServiceResponse deleteArticle(Map<String, Object> request);
 
-	public abstract boolean updateArticle(Map<String, Object> request);
+	public abstract ServiceResponse updateArticle(Map<String, Object> request);
 
-	public abstract Article findById(Map<String, Object> request);
+	public abstract ServiceResponse findById(Map<String, Object> request);
 
-	public abstract Article findByMany(Map<String, Object> request);
+	public abstract ServiceResponse findByMany(Map<String, Object> request);
 
-	public abstract List<Article> findByList(Map<String, Object> request);
+	public abstract ServiceResponse findByList(Integer page, Integer size, String authorId);
+	
+	public abstract ServiceResponse findByList(Integer page, Integer size, String authorId, String sea);
 
 }

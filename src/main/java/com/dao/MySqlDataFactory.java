@@ -8,7 +8,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -17,22 +19,24 @@ import org.hibernate.criterion.Restrictions;
  * @author 唐太明
  * @date 2016年3月13日 下午5:07:25
  * @version 1.0
+ * @param <T>
  */
-public class MySqlDataFactory {
+@SuppressWarnings("unchecked")
+public class MySqlDataFactory<T> {
 	
-	private Class<?> name;
+	private Class<T> name;
 	
 	private static final Logger log = Logger.getLogger(MySqlDataFactory.class);
 	
-	public MySqlDataFactory(Class<?> name) {
+	public MySqlDataFactory(Class<T> name) {
 		this.name = name;
 	}
 
-	public Class<?> getName() {
+	public Class<T> getName() {
 		return name;
 	}
 
-	public void setName(Class<?> name) {
+	public void setName(Class<T> name) {
 		this.name = name;
 	}
 
@@ -43,11 +47,11 @@ public class MySqlDataFactory {
 	 * @param pageing 分页方式
 	 * @return
 	 */
-	public List<?> findToListLimit(Map<String, Object> query, Map<String, Object> sort, Map<String, Integer> pageing) {
+	public List<T> findToListLimit(Map<String, Object> query, Map<String, Object> sort, Map<String, Integer> pageing) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
 		Criteria criteria = null;
-		List<?> list = null;
+		List<T> list = null;
 		try {
 			session = sf.openSession();
 			criteria = session.createCriteria(name);
@@ -77,7 +81,6 @@ public class MySqlDataFactory {
 			list = criteria.list();
 		} catch (Exception e) {
 			log.error("findToListLimit way [ " + name.getName() + " ]", e);
-			e.printStackTrace();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -91,11 +94,11 @@ public class MySqlDataFactory {
 	 * @param query 查询条件
 	 * @return 数据集合
 	 */
-	public List<?> findToList(Map<String, Object> query) {
+	public List<T> findToList(Map<String, Object> query) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
 		Criteria criteria = null;
-		List<?> list = null;
+		List<T> list = null;
 		try {
 			session = sf.openSession();
 			criteria = session.createCriteria(name);
@@ -109,7 +112,6 @@ public class MySqlDataFactory {
 			list = criteria.list();
 		} catch (Exception e) {
 			log.error("findToList way [ " + name.getName() + " ]", e);
-			e.printStackTrace();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -136,7 +138,6 @@ public class MySqlDataFactory {
 			obj = criteria.uniqueResult();
 		} catch (Exception e) {
 			log.error("findById way [ " + name.getName() + " ]", e);
-			e.printStackTrace();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -163,7 +164,6 @@ public class MySqlDataFactory {
 			obj = criteria.uniqueResult();
 		} catch (Exception e) {
 			log.error("findById way [ " + name.getName() + " ]", e);
-			e.printStackTrace();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -190,7 +190,6 @@ public class MySqlDataFactory {
 			obj = criteria.uniqueResult();
 		} catch (Exception e) {
 			log.error("findById way [ " + name.getName() + " ]", e);
-			e.printStackTrace();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -222,7 +221,6 @@ public class MySqlDataFactory {
 			obj = criteria.uniqueResult();
 		} catch (Exception e) {
 			log.error("find way [ " + name.getName() + " ]", e);
-			e.printStackTrace();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -323,5 +321,63 @@ public class MySqlDataFactory {
 		}
 		return isDelete;
 	}
+	
+	/**
+	 * 查询数量
+	 * @return
+	 */
+	public String findCount() {
+		SessionFactory sf = DataRegistry.getSessionFactory();
+		Session session = null;
+		Long count = null;
+		String countStr = null;
+		try {
+			session = sf.openSession();
+			Criteria criteria = session.createCriteria(name.getName());
+			criteria.setProjection(Projections.rowCount());
+			count = (Long) criteria.uniqueResult();
+			if (count != null) {
+				countStr = String.valueOf(count);
+			}
+		} catch(Exception e) {
+			log.error("findCount way [" + name.getName() + " ]", e);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return countStr;
+	}
+	
+	/**
+	 * 条件查询数量
+	 * @param query
+	 * @return
+	 */
+	public String findCount(Criterion criterion) {
+		SessionFactory sf = DataRegistry.getSessionFactory();
+		Session session = null;
+		Integer count = null;
+		String countStr = null;
+		try {
+			session = sf.openSession();
+			Criteria criteria = session.createCriteria(name.getName());
+			//查询条件
+			criteria.add(criterion);
+			//查询数量
+			criteria.setProjection(Projections.rowCount());
+			count = (Integer) criteria.uniqueResult();
+			if (count != null) {
+				countStr = String.valueOf(count);
+			}
+		} catch(Exception e) {
+			log.error("findCount way [" + name.getName() + " ]", e);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return countStr;
+	} 
 	
 }

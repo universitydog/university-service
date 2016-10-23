@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC   
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" > 
-<hibernate-mapping>  
+<hibernate-mapping package="com.orm">  
     <!--生成默认为数据库表-->  
-    <class name ="com.orm.Article" table="test.tb_article">  
+    <class name ="com.orm.Article" table="rrjfc3b94z.tb_article">  
         <id name ="id">
             <generator class ="native"></generator>  
         </id > 
@@ -15,8 +15,25 @@
         <property name ="tags" type="string"></property>
         <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
         <property name ="typeId" type="int"></property>
-        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
+        <!-- authorId属性，表达的是本对象（Article）与Type的多对一的关系-->
         <property name ="authorId" type="string"></property>
+        <property name ="digest" type="string"></property>
+    </class > 
+    
+    <class name ="com.orm.ArticleFuZa" table="rrjfc3b94z.tb_article">  
+        <id name ="id">
+            <generator class ="native"></generator>  
+        </id >
+        <property name ="title" type="string"></property>  
+        <property name ="titleDate" type="string"></property>
+        <property name ="inputDate" type="string"></property>
+        <property name ="url" type="string"></property>
+        <property name ="tags" type="string"></property>
+        <!-- authorId属性，表达的是本对象（Article）与Type的多对一的关系-->
+        <property name ="authorId" type="string"></property>
+        <property name ="digest" type="string"></property>
         
+        <!-- typeId属性，表达的是本对象（ArticleFuZa）与Type的多对一的关系-->
+        <many-to-one name="typeId" class="com.orm.Type" column="typeId" lazy="false" />
     </class > 
 </hibernate-mapping>

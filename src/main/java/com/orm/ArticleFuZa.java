@@ -1,12 +1,12 @@
 package com.orm;
-
 /**
- * 文章
  * 
+ * <p>介绍:文章-复杂实体</p>
  * @author 唐太明
- * @category 实体
+ * @date 2016年4月5日 下午8:34:16
+ * @version 1.0
  */
-public class Article {
+public class ArticleFuZa {
 
 	private Integer id;
 	
@@ -20,7 +20,7 @@ public class Article {
 	
 	private String tags;
 	
-	private Integer typeId;
+	private Type typeId;
 	
 	private String authorId;
 	
@@ -74,11 +74,11 @@ public class Article {
 		this.tags = tags;
 	}
 
-	public Integer getTypeId() {
+	public Type getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(Integer typeId) {
+	public void setTypeId(Type typeId) {
 		this.typeId = typeId;
 	}
 
@@ -97,5 +97,5 @@ public class Article {
 	public void setDigest(String digest) {
 		this.digest = digest;
 	}
-
+	
 }

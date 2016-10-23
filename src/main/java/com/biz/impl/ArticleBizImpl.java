@@ -15,11 +15,16 @@ import com.biz.ArticleBiz;
 import com.dao.ArticleDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orm.Article;
+import com.orm.ArticleFuZa;
+import com.orm.HomeArticle;
 import com.ttm.service.ServiceResponse;
 import com.ttm.service.ServiceResponseCode;
 import com.ttm.service.ServiceResponseMsg;
+import com.ttm.util.Dumper;
+import com.ttm.util.ServicePaginationHelper;
 import com.ttm.util.ServiceQueryHelper;
 import com.util.ServiceResponseUtils;
+import com.util.ServiceSorterHelper;
 import com.util.XmlRegisterUtil;
 
 /***
@@ -54,7 +59,6 @@ public class ArticleBizImpl implements ArticleBiz {
 	/**
 	 * 添加一条文章数据
 	 */
-	@SuppressWarnings("unchecked")
 	public ServiceResponse addArticle(Map<String, Object> request) {
 		init();
 		System.out.println("biz:" + request.toString());
@@ -184,7 +188,9 @@ public class ArticleBizImpl implements ArticleBiz {
 			service.setMsg(msg);
 		} else {
 			msg = ServiceResponseMsg.SUCCESS;
+			code = ServiceResponseCode.SUCCESS;
 			service.setMsg(msg);
+			service.setCode(code);
 			service.setPage(page);
 			service.setSize(size);
 			// 计算总页数
@@ -204,8 +210,10 @@ public class ArticleBizImpl implements ArticleBiz {
 	public ServiceResponse findByList(Integer page, Integer size, String authorId, String sea) {
 		init();
 		Integer index = countIndex(page, size);
-		Integer length = countLength(page, size);
+		Integer length = countLength(size);
+		System.out.println(index + "^^^^^^^^^^^length" + length);
 		List<Article> articles = articleDao.findByListSearch(authorId, sea, index, length);
+		System.out.println(articles.size() + " ^^^^^^^^^^^^^^");
 		if (CollectionUtils.isNotEmpty(articles)) {
 			service.setCode(ServiceResponseCode.SUCCESS);
 			service.setMsg(ServiceResponseMsg.SUCCESS);
@@ -218,11 +226,72 @@ public class ArticleBizImpl implements ArticleBiz {
 			ServiceQueryHelper.and(query, "sea", authorId);
 			Object totalNumber = articleDao.findByListSearchNumber(authorId, sea);
 			service.setTotal(countTotal(size, Integer.valueOf(totalNumber.toString())));
+		} else {
+			service = new ServiceResponseUtils();
 		}
 		return service;
 	}
 
+	public ServiceResponse findArticleByList(Integer page, Integer size, String sortName) {
+		init();
+		Map<String, Integer> pageing = ServicePaginationHelper.build(size, page);
+		Map<String, Object> sort = ServiceSorterHelper.build(sortName, ServiceSorterHelper.DESC);
+		List<ArticleFuZa> articleFuZaList = articleDao.findArticleFuByList(null, sort, pageing);
+		if (CollectionUtils.isNotEmpty(articleFuZaList)) {
+			
+			int partCount = articleDao.findArticleCount();
+			System.out.println("ttm | count:" + partCount);
+			if (partCount != 0) {
+				//获取总页数信息
+				service.setTotal(countTotal(size, partCount));
+				service.setCode(ServiceResponseCode.SUCCESS);
+				service.setMsg(ServiceResponseMsg.SUCCESS);
+				
+				service.setPage(page);
+				service.setSize(size);
+				//获取数据, 对数据进行处理
+				//1. 提取Type类型对应的数据，循环获取的数据 提取对应的 Type数据 存储到新实体中
+				service.setData(setArticleFuZa(articleFuZaList));
+			} else {
+				service.setCode(ServiceResponseCode.WARN);
+				service.setMsg("总页数获取失败...");
+			}
+		} else {
+			service.setCode(ServiceResponseCode.WARN);
+			service.setMsg(ServiceResponseMsg.WARN);
+		}
+		
+		return service;
+	}
+
 	// *************************************************************************
+	/**
+	 * 设置对应文章实体数据
+	 * @param articleFuZasL
+	 * @return
+	 */
+	private List<HomeArticle> setArticleFuZa(List<ArticleFuZa> articleFuZasL) {
+		List<HomeArticle> articleFuZasList = new ArrayList<HomeArticle>();
+		for (ArticleFuZa article : articleFuZasL) {
+			HomeArticle homeArticle = new HomeArticle();
+			homeArticle.setId(article.getId());
+			homeArticle.setTags(article.getTags());
+			homeArticle.setTitle(article.getTitle());
+			homeArticle.setInputDate(article.getInputDate());
+			homeArticle.setUrl(article.getUrl());
+			homeArticle.setAuthorId(article.getAuthorId());
+			homeArticle.setDigest(article.getDigest());
+			homeArticle.setTitleDate(article.getTitleDate());
+			//Type
+			homeArticle.setTypeId(article.getTypeId().getId());
+			homeArticle.setName(article.getTypeId().getName());
+			homeArticle.setImgUrl(article.getTypeId().getImgUrl());
+			articleFuZasList.add(homeArticle);
+		}
+		
+		return articleFuZasList;
+	}
+	
 	/**
 	 * 初始化 需要的一些必要对象
 	 */
@@ -265,14 +334,12 @@ public class ArticleBizImpl implements ArticleBiz {
 	/**
 	 * 根据当前页 获取数据条目数量
 	 * 
-	 * @param page
-	 *            当前页
 	 * @param size
 	 *            每页显示数量
 	 * @return
 	 */
-	private Integer countLength(Integer page, Integer size) {
-		return page * size;
+	private Integer countLength(Integer size) {
+		return size;
 	}
 
 }

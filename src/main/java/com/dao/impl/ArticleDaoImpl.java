@@ -1,6 +1,5 @@
 package com.dao.impl;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,16 +8,20 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import com.dao.ArticleDao;
 import com.dao.DataRegistry;
 import com.dao.MySqlDataFactory;
 import com.orm.Article;
+import com.orm.ArticleFuZa;
 
 @SuppressWarnings("unchecked")
 public class ArticleDaoImpl implements ArticleDao {
 
 	private MySqlDataFactory mysqlFactory = new MySqlDataFactory(Article.class);
+	
+	private MySqlDataFactory articleFuZaFactory = new MySqlDataFactory(ArticleFuZa.class);
 
 	public boolean addArticle(Article art) {
 		return mysqlFactory.save(art);
@@ -49,14 +52,14 @@ public class ArticleDaoImpl implements ArticleDao {
 			Map<String, Integer> pageing) {
 		return (List<Article>) mysqlFactory.findToListLimit(request, sort, pageing);
 	}
-
+	
 	public List<Article> findByListSearch(String authorId, String sea,  Integer index, Integer length) {
 		SessionFactory factory = DataRegistry.getSessionFactory();
 		Session session = null;
-		String sql = "SELECT this_.id, this_.title, this_.titleDate, this_.typeId, this_.inputDate, this_.url, this_.tags, this_.authorId FROM "
-				+ "test.tb_article this_ " + "WHERE " + "this_.authorId=? " + "AND " + "( "
-				+ "UPPER(this_.title) LIKE BINARY CONCAT('%', UPPER(?), '%') " + "or "
-				+ "UPPER(this_.tags) LIKE BINARY CONCAT('%', UPPER(?), '%') " + " ) limit ?, ?";
+		String sql = "select this_.id, this_.title, this_.titleDate, this_.typeId, this_.inputDate, this_.url, this_.tags, this_.authorId from "
+				+ "test.tb_article this_ " + "WHERE " + "this_.authorId=? " + "and " + " ( "
+				+ "upper(this_.title) like binary concat('%', UPPER(?), '%') " + "or "
+				+ "upper(this_.tags) like binary concat('%', UPPER(?), '%') " + " ) limit ?, ?";
 		List<Article> articles = new ArrayList<Article>();
 		try {
 			session = factory.openSession();
@@ -102,6 +105,16 @@ public class ArticleDaoImpl implements ArticleDao {
 		}
 
 		return number;
+	}
+
+	public List<ArticleFuZa> findArticleFuByList(Map<String, Object> query, Map<String, Object> sort,
+			Map<String, Integer> pageing) {
+		return (List<ArticleFuZa>) articleFuZaFactory.findToListLimit(query, sort, pageing);
+	}
+
+	public int findArticleCount() {
+		String partCount = mysqlFactory.findCount();
+		return Integer.parseInt(partCount);
 	}
 
 }

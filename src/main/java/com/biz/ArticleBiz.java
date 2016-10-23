@@ -26,4 +26,12 @@ public interface ArticleBiz {
 	
 	public abstract ServiceResponse findByList(Integer page, Integer size, String authorId, String sea);
 
+	/**
+	 * 分页，排序字段查询列表数据
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public abstract ServiceResponse findArticleByList(Integer page, Integer size, String sortName);
+	
 }

@@ -4,7 +4,7 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" > 
 <hibernate-mapping>  
     <!--生成默认为user的数据库表-->  
-    <class name ="com.orm.Author" table="test.tb_author">  
+    <class name ="com.orm.Author" table="rrjfc3b94z.tb_author">  
         <id name ="id" type="string" >
             <generator class="assigned"></generator>
         </id> 
@@ -16,6 +16,5 @@
         <property name ="createTime" type="string" not-null="true"></property>
         <property name ="imgurl" type="string" not-null="true"></property>
 	    <property name ="typeId" type="int" not-null="true"></property>    
-        
-    </class > 
+    </class>
 </hibernate-mapping>

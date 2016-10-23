@@ -15,6 +15,9 @@
 	
 	<mvc:default-servlet-handler/>
 	
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.action" />
+	
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 		    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -28,9 +31,6 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<!-- 扫描包 -->
-	<context:component-scan base-package="com.action" />
-
 	<!-- 配置视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="contentType" value="text/html" />
@@ -38,5 +38,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<!-- 异常统一处理 -->
+	<bean id="exceptionHandler" class="com.exception.DefaultException"></bean>
 
 </beans>

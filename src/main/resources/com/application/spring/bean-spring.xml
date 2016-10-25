@@ -13,7 +13,5 @@
 
 	<import resource="biz-spring.xml" />
 	<import resource="dao-spring.xml" />
-	<import resource="other-spring.xml" />
-    
     
 </beans>

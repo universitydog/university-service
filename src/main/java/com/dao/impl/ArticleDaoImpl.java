@@ -17,7 +17,7 @@ import com.dao.MySqlDataFactory;
 import com.orm.Article;
 
 @SuppressWarnings("unchecked")
-@Repository(value = "articleDaoImpl")
+@Repository
 public class ArticleDaoImpl implements ArticleDao {
 
 	private MySqlDataFactory<Article> mysqlFactory;
@@ -25,26 +25,6 @@ public class ArticleDaoImpl implements ArticleDao {
 	public void execute() {
 		//加载工厂类
 		mysqlFactory = MySqlDataFactory.getFactory(Article.class);
-	}
-	
-	public boolean addArticle(Article art) {
-		execute();
-		return mysqlFactory.save(art);
-	}
-
-	public boolean deleteArticle(Integer id) {
-		execute();
-		Article art = findById(id);
-		if (art == null) {
-			return false;
-		} else {
-			return mysqlFactory.delete(art);
-		}
-	}
-
-	public boolean updateArticle(Article art) {
-		execute();
-		return mysqlFactory.update(art);
 	}
 
 	public Article findById(Integer id) {

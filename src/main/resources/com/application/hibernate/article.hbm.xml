@@ -17,7 +17,7 @@
         <property name ="authorId" type="string"></property>
         <property name ="digest" type="string"></property>
         
-        <!-- typeId属性，表达的是本对象（ArticleFuZa）与Type的多对一的关系-->
+        <!-- typeId属性，表达的是本对象（Article）与Type的多对一的关系-->
         <many-to-one name="typeId" class="com.orm.Type" column="typeId" lazy="false" />
     </class > 
 </hibernate-mapping>

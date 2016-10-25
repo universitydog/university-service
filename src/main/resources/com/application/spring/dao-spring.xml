@@ -13,5 +13,6 @@
 
 	<bean id="articleDaoImpl" class="com.dao.impl.ArticleDaoImpl" />
     
-    
+    <bean id="authorDaoImpl" class="com.dao.impl.AuthorDaoImpl"></bean>
+	
 </beans>

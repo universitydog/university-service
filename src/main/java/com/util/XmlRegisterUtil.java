@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class XmlRegisterUtil {
 
-	private static final String PATH = "com/application/spring/bean-spring.xml";
+	private static final String PATH = "com/application/spring/*.xml";
 	
 	private static ApplicationContext ac = new ClassPathXmlApplicationContext(PATH);
 	

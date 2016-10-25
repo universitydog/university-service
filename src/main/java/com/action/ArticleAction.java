@@ -1,7 +1,9 @@
 package com.action;
 
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.ArticleBiz;
+import com.orm.ArticleSimple;
 import com.ttm.service.ServiceResponse;
+import com.util.ServiceResponseUtils;
 import com.util.VersionHelper;
-import com.util.XmlRegisterUtil;
 
 /***
  * <p>
@@ -25,17 +28,19 @@ import com.util.XmlRegisterUtil;
  * @date 2016年3月10日 下午11:27:31
  * @version 1.0
  */
+@SuppressWarnings("rawtypes")
 @Controller
 @RequestMapping(value = VersionHelper.VERSION)
 public class ArticleAction {
 
-	private ServiceResponse service;
+//	private ServiceResponseUtils<List<ArticleSimple>> serviceUtils;
 
-	private ArticleBiz articleBiz;
+	@Autowired
+	private ArticleBiz articleBizImpl;
 
 	public ArticleAction() {
-		service = (ServiceResponse) XmlRegisterUtil.getBean("service");
-		articleBiz = (ArticleBiz) XmlRegisterUtil.getBean("articleBiz");
+//		serviceUtils = (ServiceResponse) XmlRegisterUtil.getBean("service");
+//		articleBizImpl = (ArticleBiz) XmlRegisterUtil.getBean("articleBizImpl");
 	}
 
 	/**
@@ -50,7 +55,7 @@ public class ArticleAction {
 	public ServiceResponse saveAriticle(@RequestHeader("token") String token,
 			@RequestBody Map<String, Object> request) {
 		// service = articleBiz.addArticle(request);
-		return service;
+		return null;
 	}
 
 	/**
@@ -69,8 +74,8 @@ public class ArticleAction {
 	@ResponseBody
 	public ServiceResponse findAriticle(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
 			@PathVariable("authorId") String authorId) {
-		service = articleBiz.findByList(page, size, authorId);
-		return service;
+//		service = articleBiz.findByList(page, size, authorId);
+		return null;
 	}
 
 	/**
@@ -91,8 +96,8 @@ public class ArticleAction {
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^authorId:" + authorId);
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^page:" + page);
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^size:" + size);
-		service = articleBiz.findByList(page, size, authorId, sea);
-		return service;
+//		service = articleBiz.findByList(page, size, authorId, sea);
+		return null;
 	}
 	
 	/** 
@@ -102,22 +107,20 @@ public class ArticleAction {
 	 * @param sea 搜索
 	 * @param authorId 作者id
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	@ResponseBody
-	public ServiceResponse home(@RequestParam(value = "page", defaultValue = "1", required = false) Integer page, 
-			@RequestParam(value = "size", defaultValue = "20", required = false) Integer size) {
+	public ServiceResponseUtils home(@RequestParam(value = "page", defaultValue = "1", required = false) Integer page, 
+			@RequestParam(value = "size", defaultValue = "20", required = false) Integer size) throws Exception {
 		//查询条件 page，size，排序条件 inputDate
 		Long startTime = System.currentTimeMillis();
-		try {
-			service = articleBiz.findArticleByList(page, size, "inputDate");
-		} catch (Exception e) {
-			new Exception("异常");
-		}
+		ServiceResponseUtils<List<ArticleSimple>> articleSimples = new ServiceResponseUtils<List<ArticleSimple>>();
+		articleSimples = articleBizImpl.findArticleByList(page, size, "inputDate");
 		Long endTime = System.currentTimeMillis();
-		
 		System.out.println("时间:" + (endTime - startTime));
-		return service;
+		
+		return articleSimples;
 	}
 
 }

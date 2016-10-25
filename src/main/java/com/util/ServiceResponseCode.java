@@ -9,10 +9,10 @@ package com.util;
  */
 public class ServiceResponseCode {
 
-	public static final int SUCCESS = 200;
+	public static final int SUCCESS = 1;
 
-	public static final int WARN = 404;
+	public static final int WARN = 0;
 
-	public static final int ERROR = 500;
+	public static final int ERROR = -1;
 
 }

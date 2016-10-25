@@ -1,5 +1,6 @@
 package com.exception;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,10 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.util.ServiceResponse;
 import com.util.ServiceResponseCode;
-import com.util.ServiceResponseData;
 import com.util.ServiceResponseMsg;
 
 /**
@@ -24,9 +25,12 @@ public class DefaultException implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2,
 			Exception arg3) {
 		ModelAndView partView = new ModelAndView();
-		ServiceResponse<Map<String, Object>> partResponse = new ServiceResponse<Map<String, Object>>(ServiceResponseCode.ERROR, ServiceResponseMsg.ERROR);
-		partResponse.setData(new ServiceResponseData<Map<String, Object>>());
-		partView.addObject(partResponse);
+		MappingJackson2JsonView partJsonView = new MappingJackson2JsonView();
+		Map<String, Object> partError = new HashMap<String, Object>();
+		partError.put("code", ServiceResponseCode.ERROR);
+		partError.put("msg", ServiceResponseMsg.ERROR + " | 请求异常");
+		partView.addAllObjects(partError);
+		partView.setView(partJsonView);
 		return partView;
 	}
 

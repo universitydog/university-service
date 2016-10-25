@@ -1,30 +1,38 @@
 package com.orm;
+
 /**
  * 
- * <p>介绍:文章-复杂实体</p>
- * @author 唐太明
- * @date 2016年4月5日 下午8:34:16
+ * <p>
+ * 介绍 文章简单类
+ * </p>
+ * 
+ * @author TTM
+ * @date 2016年10月25日 上午6:28:18
  * @version 1.0
  */
-public class ArticleFuZa {
+public class ArticleSimple {
 
 	private Integer id;
 	
+	private String tags;
+
 	private String title;
-	
+
 	private String titleDate;
-	
+
 	private String inputDate;
-	
+
 	private String url;
 	
-	private String tags;
+	private Integer typeId;
+
+	private String name;
 	
-	private Type typeId;
+	private String imgUrl;
+
+	private String digest;
 	
 	private String authorId;
-	
-	private String digest;
 
 	public Integer getId() {
 		return id;
@@ -32,6 +40,14 @@ public class ArticleFuZa {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public String getTitle() {
@@ -66,20 +82,36 @@ public class ArticleFuZa {
 		this.url = url;
 	}
 
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public Type getTypeId() {
+	public Integer getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(Type typeId) {
+	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getDigest() {
+		return digest;
+	}
+
+	public void setDigest(String digest) {
+		this.digest = digest;
 	}
 
 	public String getAuthorId() {
@@ -90,12 +122,4 @@ public class ArticleFuZa {
 		this.authorId = authorId;
 	}
 
-	public String getDigest() {
-		return digest;
-	}
-
-	public void setDigest(String digest) {
-		this.digest = digest;
-	}
-	
 }

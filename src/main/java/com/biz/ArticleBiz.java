@@ -1,8 +1,10 @@
 package com.biz;
 
-import java.util.Map;
+import java.util.List;
 
-import com.ttm.service.ServiceResponse;
+import com.orm.ArticleSimple;
+import com.util.ServiceResponseUtils;
+
 /**
  * 
  * <p>介绍:文章业务接口</p>
@@ -12,26 +14,12 @@ import com.ttm.service.ServiceResponse;
  */
 public interface ArticleBiz {
 
-	public abstract ServiceResponse addArticle(Map<String, Object> request);
-
-	public abstract ServiceResponse deleteArticle(Map<String, Object> request);
-
-	public abstract ServiceResponse updateArticle(Map<String, Object> request);
-
-	public abstract ServiceResponse findById(Map<String, Object> request);
-
-	public abstract ServiceResponse findByMany(Map<String, Object> request);
-
-	public abstract ServiceResponse findByList(Integer page, Integer size, String authorId);
-	
-	public abstract ServiceResponse findByList(Integer page, Integer size, String authorId, String sea);
-
 	/**
 	 * 分页，排序字段查询列表数据
 	 * @param page
 	 * @param size
 	 * @return
 	 */
-	public abstract ServiceResponse findArticleByList(Integer page, Integer size, String sortName);
+	public abstract ServiceResponseUtils<List<ArticleSimple>> findArticleByList(int page, int size, String sortName);
 	
 }

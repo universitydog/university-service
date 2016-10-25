@@ -8,6 +8,8 @@ public class DataRegistry {
 	
 	private static ApplicationContext ac = new ClassPathXmlApplicationContext("com/application/spring/applicationContext-spring.xml");
 	
+	private DataRegistry() {}
+	
 	public static SessionFactory getSessionFactory() {
 		return ac.getBean("sessionFactory", SessionFactory.class);
 	}

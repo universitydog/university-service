@@ -1,29 +1,33 @@
 package com.orm;
 
 /**
- * 文章
+ * 
+ * <p>
+ * 介绍:文章-实体
+ * </p>
  * 
  * @author 唐太明
- * @category 实体
+ * @date 2016年4月5日 下午8:34:16
+ * @version 1.0
  */
 public class Article {
 
 	private Integer id;
-	
+
 	private String title;
-	
+
 	private String titleDate;
-	
+
 	private String inputDate;
-	
+
 	private String url;
-	
+
 	private String tags;
-	
-	private Integer typeId;
-	
+
+	private Type typeId;
+
 	private String authorId;
-	
+
 	private String digest;
 
 	public Integer getId() {
@@ -74,11 +78,11 @@ public class Article {
 		this.tags = tags;
 	}
 
-	public Integer getTypeId() {
+	public Type getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(Integer typeId) {
+	public void setTypeId(Type typeId) {
 		this.typeId = typeId;
 	}
 

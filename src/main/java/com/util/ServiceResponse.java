@@ -9,7 +9,7 @@ package com.util;
 public class ServiceResponse<T> {
 
 	private int code;
-	private ServiceResponseData<T> data;
+	private T data;
 	private String msg;
 
 	/**
@@ -39,11 +39,11 @@ public class ServiceResponse<T> {
 		this.code = code;
 	}
 
-	public ServiceResponseData<T> getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(ServiceResponseData<T> data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 

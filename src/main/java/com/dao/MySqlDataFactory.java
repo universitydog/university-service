@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,26 +21,86 @@ import org.hibernate.criterion.Restrictions;
  * @date 2016年3月13日 下午5:07:25
  * @version 1.0
  * @param <T>
+ * @param <T>
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class MySqlDataFactory<T> {
-	
-	private Class<T> name;
 	
 	private static final Logger log = Logger.getLogger(MySqlDataFactory.class);
 	
-	public MySqlDataFactory(Class<T> name) {
+	private Class name;
+	
+	private int size;
+	
+	private static MySqlDataFactory single;;
+	
+	private MySqlDataFactory() {};
+	
+	private MySqlDataFactory(Class name) {
 		this.name = name;
+		this.size = 20;
+	}
+	
+	public static MySqlDataFactory getFactory(Class name) {
+		if (single == null) {
+			single = new MySqlDataFactory(name);
+		}
+		System.out.println(single.toString());
+		return single;
 	}
 
-	public Class<T> getName() {
+	public Class getName() {
 		return name;
 	}
 
-	public void setName(Class<T> name) {
+	public void setName(Class name) {
 		this.name = name;
 	}
 
+	/**
+	 * 根据查询条件 排序进行查询
+	 * @param criterion
+	 * @param sort
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public List<T> findArticleByQuery(Criterion criterion, Order sort, int page, int size) {
+		SessionFactory sf = DataRegistry.getSessionFactory();
+		Session session = null;
+		List<T> objList = new ArrayList<T>();
+		try {
+			session = sf.openSession();
+			Criteria cri = session.createCriteria(name);
+			
+			if (criterion != null) {
+				cri.add(criterion);
+			}
+			
+			if (sort != null) {
+				cri.addOrder(sort);
+			}
+			
+			int pageNumber = (page - 1) * size;
+			int pageSize = size;
+			cri.setFirstResult(pageNumber);
+			
+			//如果每页数量 获取 0 默认设置 20
+			if (pageSize == 0) {
+				pageSize = getSize();
+			}
+			cri.setMaxResults(size);
+			objList = cri.list();
+		} catch (Exception e) {
+			log.error("findToListLimitB way [ " + name.getName() + " ]", e);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return objList;
+	}
+	
 	/**
 	 * 分页查询数据
 	 * @param query 查询条件
@@ -378,6 +439,14 @@ public class MySqlDataFactory<T> {
 			}
 		}
 		return countStr;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	} 
 	
 }

@@ -8,26 +8,32 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Order;
+import org.springframework.stereotype.Repository;
 
 import com.dao.ArticleDao;
 import com.dao.DataRegistry;
 import com.dao.MySqlDataFactory;
 import com.orm.Article;
-import com.orm.ArticleFuZa;
 
 @SuppressWarnings("unchecked")
+@Repository(value = "articleDaoImpl")
 public class ArticleDaoImpl implements ArticleDao {
 
-	private MySqlDataFactory mysqlFactory = new MySqlDataFactory(Article.class);
-	
-	private MySqlDataFactory articleFuZaFactory = new MySqlDataFactory(ArticleFuZa.class);
+	private MySqlDataFactory<Article> mysqlFactory;
 
+	public void execute() {
+		//加载工厂类
+		mysqlFactory = MySqlDataFactory.getFactory(Article.class);
+	}
+	
 	public boolean addArticle(Article art) {
+		execute();
 		return mysqlFactory.save(art);
 	}
 
 	public boolean deleteArticle(Integer id) {
+		execute();
 		Article art = findById(id);
 		if (art == null) {
 			return false;
@@ -37,19 +43,23 @@ public class ArticleDaoImpl implements ArticleDao {
 	}
 
 	public boolean updateArticle(Article art) {
+		execute();
 		return mysqlFactory.update(art);
 	}
 
 	public Article findById(Integer id) {
+		execute();
 		return (Article) mysqlFactory.findById(id);
 	}
 
 	public Article findByMany(Map<String, Object> request) {
+		execute();
 		return (Article) mysqlFactory.find(request);
 	}
 
 	public List<Article> findByList(Map<String, Object> request, Map<String, Object> sort,
 			Map<String, Integer> pageing) {
+		execute();
 		return (List<Article>) mysqlFactory.findToListLimit(request, sort, pageing);
 	}
 	
@@ -106,15 +116,16 @@ public class ArticleDaoImpl implements ArticleDao {
 
 		return number;
 	}
-
-	public List<ArticleFuZa> findArticleFuByList(Map<String, Object> query, Map<String, Object> sort,
-			Map<String, Integer> pageing) {
-		return (List<ArticleFuZa>) articleFuZaFactory.findToListLimit(query, sort, pageing);
-	}
-
+	
 	public int findArticleCount() {
+		execute();
 		String partCount = mysqlFactory.findCount();
 		return Integer.parseInt(partCount);
 	}
 
+	public List<Article> findArticleByQuery(Criterion criterion, Order sort, int page, int size) {
+		execute();
+		return mysqlFactory.findArticleByQuery(criterion, sort, page, size);
+	}
+	
 }

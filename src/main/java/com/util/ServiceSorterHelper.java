@@ -3,6 +3,8 @@ package com.util;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.hibernate.criterion.Order;
+
 public class ServiceSorterHelper {
 
 	public static final String ASC = "asc";
@@ -17,5 +19,22 @@ public class ServiceSorterHelper {
 		return _innerSortion;
 	}
 	
+	/**
+	 * 升序
+	 * @param key
+	 * @return
+	 */
+	public static Order asc(String key) {
+		return Order.asc(key);
+	}
 	
+	/**
+	 * 降序
+	 * @param key
+	 * @return
+	 */
+	public static Order desc(String key) {
+		return Order.desc(key);
+	}
+
 }

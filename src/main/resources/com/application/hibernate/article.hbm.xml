@@ -13,7 +13,7 @@
         <property name ="inputDate" type="string"></property>
         <property name ="url" type="string"></property>
         <property name ="tags" type="string"></property>
-        <!-- authorId属性，表达的是本对象（Article）与Type的多对一的关系-->
+        <!-- authorId属性，表达的是本对象（Article）与 Author的多对一的关系-->
         <property name ="authorId" type="string"></property>
         <property name ="digest" type="string"></property>
         

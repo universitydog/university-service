@@ -95,7 +95,7 @@ public class AuthorBizImpl implements AuthorBiz {
 			partAuthorSimpeResponse.setSize(size);
 			partAuthorSimpeResponse.setTotal(totalPage);
 		} else {
-			partAuthorSimpeResponse.setMsg(ServiceResponseMsg.WARN + " | 查询数据为空");
+			partAuthorSimpeResponse.setMsg(ServiceResponseMsg.WARN + " | 暂无数据");
 		}
 		return partAuthorSimpeResponse;
 	}

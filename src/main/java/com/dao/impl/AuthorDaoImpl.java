@@ -33,7 +33,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	
 	public List<Author> findAuthorByQuery(Criterion criterion, Order sort, int page, int size) {
 		execute();
-		return mySqlFactory.findArticleByQuery(criterion, sort, page, size);
+		return mySqlFactory.findByQuery(criterion, sort, page, size);
 	}
 
 	public int findAuthorCount() {

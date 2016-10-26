@@ -18,5 +18,5 @@
         
         <!-- typeId 属性，表达的是本对象（Author）与Type的多对一的关系-->
         <many-to-one name="typeId" class="com.orm.Type" column="typeId" lazy="proxy" />
-    </class > 
+   </class > 
 </hibernate-mapping>

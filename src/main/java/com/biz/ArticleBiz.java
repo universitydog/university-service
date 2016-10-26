@@ -32,4 +32,15 @@ public interface ArticleBiz {
 	 */
 	public abstract ServiceResponseUtils<List<ArticleSimple>> findArticleByList(String authorId, int page, int size, String sortName);
 	
+	/**
+	 * 根据作者id + title/tags/digest 查询数据
+	 * @param search
+	 * @param authorId
+	 * @param page
+	 * @param size
+	 * @param sortName
+	 * @return
+	 */
+	public abstract ServiceResponseUtils<List<ArticleSimple>> findArticleByList(String search, String authorId, int page, int size, String sortName);
+	
 }

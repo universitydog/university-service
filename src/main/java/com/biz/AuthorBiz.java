@@ -2,6 +2,7 @@ package com.biz;
 
 import java.util.List;
 
+import com.orm.ArticleSimple;
 import com.orm.AuthorSimple;
 import com.util.ServiceResponseUtils;
 

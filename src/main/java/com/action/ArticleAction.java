@@ -3,6 +3,8 @@ package com.action;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,20 +71,20 @@ public class ArticleAction {
 	 *            作者Id
 	 * @return
 	 */
-	// @RequestMapping(value = "article/{authorId}/search", params = {"sea",
-	// "page", "size"}, method = RequestMethod.GET)
-	// @ResponseBody
-	// public ServiceResponse findAriticle(@RequestParam(value = "page") Integer
-	// page, @RequestParam("size") Integer size,
-	// @RequestParam(value = "sea") String sea, @PathVariable(value =
-	// "authorId") String authorId) {
-	// System.out.println("^^^^^^^^^^^^^^^^^^^^^^search:" + sea);
-	// System.out.println("^^^^^^^^^^^^^^^^^^^^^^authorId:" + authorId);
-	// System.out.println("^^^^^^^^^^^^^^^^^^^^^^page:" + page);
-	// System.out.println("^^^^^^^^^^^^^^^^^^^^^^size:" + size);
-	//// service = articleBiz.findByList(page, size, authorId, sea);
-	// return null;
-	// }
+	@RequestMapping(value = "article/search", params = { "sea", "authorId", "page", "size" }, method = RequestMethod.POST)
+	@ResponseBody
+	public ServiceResponseUtils search(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
+			@RequestParam(value = "sea") String sea, @RequestParam(value = "authorId") String authorId, HttpServletRequest request) {
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^search:" + sea);
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^authorId:" + authorId);
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^page:" + page);
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^size:" + size);
+		String a = request.getParameter("sea");
+		System.out.println("ttm |" + a);
+		ServiceResponseUtils<List<ArticleSimple>> partResponse = new ServiceResponseUtils<List<ArticleSimple>>();
+		partResponse = articleBizImpl.findArticleByList(sea, authorId, page, size, "inputDate");
+		return partResponse;
+	}
 
 	/**
 	 * 首页文章列表查询， 默认使用inputDate倒序排列

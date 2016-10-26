@@ -1,5 +1,7 @@
 package com.orm;
 
+import java.util.Set;
+
 /**
  * 
  * <p>
@@ -29,6 +31,8 @@ public class Author {
 	private String imgurl;
 	
 	private Type typeId;
+	
+	private Set<Article> articles;
 
 	public String getId() {
 		return id;
@@ -100,6 +104,14 @@ public class Author {
 
 	public void setTypeId(Type typeId) {
 		this.typeId = typeId;
+	}
+
+	public Set<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(Set<Article> articles) {
+		this.articles = articles;
 	}
 	
 }

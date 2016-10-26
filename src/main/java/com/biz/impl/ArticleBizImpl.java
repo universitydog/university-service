@@ -34,9 +34,9 @@ public class ArticleBizImpl implements ArticleBiz {
 
 	@Autowired
 	private ArticleDao articleDaoImpl;
-
+	
 	public ServiceResponseUtils<List<ArticleSimple>> findArticleByList(int page, int size, String sortName) {
-		List<Article> partArticles = articleDaoImpl.findArticleByQuery(null, Order.desc("inputDate"), page, size);
+		List<Article> partArticles = articleDaoImpl.findArticleByQuery((Criterion) null, Order.desc("inputDate"), page, size);
 		int totalCount = articleDaoImpl.findArticleCount();
 		int totalPage = countTotal(size, totalCount);
 		System.out.println("ttm | articles : " + partArticles.size());
@@ -97,7 +97,7 @@ public class ArticleBizImpl implements ArticleBiz {
 			partResponse.setSize(size);
 			partResponse.setTotal(totalPage);
 		} else {
-			partResponse.setMsg(ServiceResponseMsg.WARN + " | 查询数据为空");
+			partResponse.setMsg(ServiceResponseMsg.WARN + " | 暂无数据");
 		}
 		return partResponse;
 	}
@@ -133,6 +133,31 @@ public class ArticleBizImpl implements ArticleBiz {
 		} else {
 			partResponse = constructServiceResponse(ServiceResponseCode.WARN, partArticleSimple, page, size, totalPage);
 		}
+		return partResponse;
+	}
+
+	public ServiceResponseUtils<List<ArticleSimple>> findArticleByList(String search, String authorId, int page,
+			int size, String sortName) {
+		//查询条件
+		List<Criterion> partCris = new ArrayList<Criterion>();
+		partCris.add(Restrictions.eq("authorId", authorId));
+		partCris.add(Restrictions.or(
+				Restrictions.like("title", "%" + search + "%"),
+				Restrictions.like("tags", "%" + search + "%"),
+				Restrictions.like("digest", "%" + search + "%")
+				));
+		List<Article> partArticles = articleDaoImpl.findArticleByQuery(partCris, Order.asc("inputDate"), page, size);
+		int totalCount = articleDaoImpl.findArticleCount(partCris);
+		int totalPage = countTotal(size, totalCount);
+		
+		List<ArticleSimple> partArticleSimple = constructArticleSimple(partArticles);
+		ServiceResponseUtils<List<ArticleSimple>> partResponse = new ServiceResponseUtils<List<ArticleSimple>>();
+		if (CollectionUtils.isNotEmpty(partArticles)) {
+			partResponse = constructServiceResponse(ServiceResponseCode.SUCCESS, partArticleSimple, page, size, totalPage);
+		} else {
+			partResponse = constructServiceResponse(ServiceResponseCode.WARN, partArticleSimple, page, size, totalPage);
+		}
+		
 		return partResponse;
 	}
 

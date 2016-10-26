@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -65,7 +66,7 @@ public class MySqlDataFactory<T> {
 	 * @param size
 	 * @return
 	 */
-	public List<T> findArticleByQuery(Criterion criterion, Order sort, int page, int size) {
+	public List<T> findByQuery(Criterion criterion, Order sort, int page, int size) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
 		List<T> objList = new ArrayList<T>();
@@ -418,7 +419,7 @@ public class MySqlDataFactory<T> {
 	public String findCount(Criterion criterion) {
 		SessionFactory sf = DataRegistry.getSessionFactory();
 		Session session = null;
-		Integer count = null;
+		Long count = null;
 		String countStr = null;
 		try {
 			session = sf.openSession();
@@ -427,7 +428,7 @@ public class MySqlDataFactory<T> {
 			criteria.add(criterion);
 			//查询数量
 			criteria.setProjection(Projections.rowCount());
-			count = (Integer) criteria.uniqueResult();
+			count = (Long) criteria.uniqueResult();
 			if (count != null) {
 				countStr = String.valueOf(count);
 			}
@@ -439,6 +440,84 @@ public class MySqlDataFactory<T> {
 			}
 		}
 		return countStr;
+	}
+	
+	public String findCount(List<Criterion> criterions) {
+		SessionFactory sf = DataRegistry.getSessionFactory();
+		Session session = null;
+		Long count = null;
+		String countStr = null;
+		try {
+			session = sf.openSession();
+			Criteria criteria = session.createCriteria(name.getName());
+			//查询条件
+			if (CollectionUtils.isNotEmpty(criterions)) {
+				for (Criterion criterion : criterions) {
+					criteria.add(criterion);
+				}
+			}
+			
+			//查询数量
+			criteria.setProjection(Projections.rowCount());
+			count = (Long) criteria.uniqueResult();
+			if (count != null) {
+				countStr = String.valueOf(count);
+			}
+		} catch(Exception e) {
+			log.error("findCount way [" + name.getName() + " ]", e);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return countStr;
+	}
+	
+	/**
+	 * 多条件查询 集合数据
+	 * @param criterions
+	 * @param sort
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public List<T> findByQuery(List<Criterion> criterions, Order sort, int page, int size) {
+		SessionFactory sf = DataRegistry.getSessionFactory();
+		Session session = null;
+		List<T> partList = new ArrayList<T>();
+		try {
+			session = sf.openSession();
+			Criteria criteria = session.createCriteria(name);
+			
+			if (CollectionUtils.isNotEmpty(criterions)) {
+				for (Criterion criterion : criterions) {
+					criteria.add(criterion);
+				}
+			}
+			
+			if (sort != null) {
+				criteria.addOrder(sort);
+			}
+			
+			int pageNumber = (page - 1) * size;
+			int pageSize = size;
+			criteria.setFirstResult(pageNumber);
+			
+			//如果每页数量 获取 0 默认设置 20
+			if (pageSize == 0) {
+				pageSize = getSize();
+			}
+			criteria.setMaxResults(size);
+			partList = criteria.list();
+		} catch (Exception e) {
+			log.error("findListToQuery way [" + name.getName() + " ]", e);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		
+		return partList;
 	}
 
 	public int getSize() {

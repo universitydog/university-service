@@ -36,6 +36,13 @@ public interface ArticleDao {
 	public abstract int findArticleCount(Criterion criterion);
 	
 	/**
+	 * 多条件查询
+	 * @param criterions
+	 * @return
+	 */
+	public abstract int findArticleCount(List<Criterion> criterions);
+	
+	/**
 	 * new 查询文章
 	 * @param criterion
 	 * @param sort
@@ -43,5 +50,15 @@ public interface ArticleDao {
 	 * @return
 	 */
 	public abstract List<Article> findArticleByQuery(Criterion criterion, Order sort, int page, int size);
+	
+	/**
+	 * 多条件查询 文章
+	 * @param criterions
+	 * @param sort
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public abstract List<Article> findArticleByQuery(List<Criterion> criterions, Order sort, int page, int size);
 	
 }

@@ -4,7 +4,7 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" > 
 <hibernate-mapping package="com.orm">  
     <!--生成默认为数据库表-->  
-    <class name ="com.orm.Article" table="rrjfc3b94z.tb_article">  
+    <class name ="Article" table="rrjfc3b94z.tb_article">  
         <id name ="id">
             <generator class ="native"></generator>  
         </id > 

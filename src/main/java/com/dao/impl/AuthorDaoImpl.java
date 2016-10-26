@@ -2,6 +2,7 @@ package com.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,12 @@ public class AuthorDaoImpl implements AuthorDao {
 	public List<Author> findAuthorByQuery(Criterion criterion, Order sort, int page, int size) {
 		execute();
 		return mySqlFactory.findArticleByQuery(criterion, sort, page, size);
+	}
+
+	public int findAuthorCount() {
+		execute();
+		String partCount = mySqlFactory.findCount();
+		return StringUtils.isEmpty(partCount) ? 0 : Integer.valueOf(partCount);
 	}
 
 }

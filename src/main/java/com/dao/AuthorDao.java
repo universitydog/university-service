@@ -21,4 +21,6 @@ public interface AuthorDao {
 
 	public abstract List<Author> findAuthorByQuery(Criterion criterion, Order sort, int page, int size);
 	
+	public abstract int findAuthorCount();
+	
 }

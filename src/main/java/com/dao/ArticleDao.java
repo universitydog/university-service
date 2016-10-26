@@ -22,11 +22,18 @@ public interface ArticleDao {
 	
 	
 	/**
-	 * 条件查询数量   目前只处理等于的情况
+	 * 查询所有数量
 	 * @param query
 	 * @return
 	 */
 	public abstract int findArticleCount();
+	
+	/**
+	 * 条件查询数量
+	 * @param criterion
+	 * @return
+	 */
+	public abstract int findArticleCount(Criterion criterion);
 	
 	/**
 	 * new 查询文章

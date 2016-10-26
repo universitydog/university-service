@@ -22,4 +22,14 @@ public interface ArticleBiz {
 	 */
 	public abstract ServiceResponseUtils<List<ArticleSimple>> findArticleByList(int page, int size, String sortName);
 	
+	/**
+	 * 根据作者id 查数据
+	 * @param authorId
+	 * @param page
+	 * @param size
+	 * @param sortName
+	 * @return
+	 */
+	public abstract ServiceResponseUtils<List<ArticleSimple>> findArticleByList(String authorId, int page, int size, String sortName);
+	
 }

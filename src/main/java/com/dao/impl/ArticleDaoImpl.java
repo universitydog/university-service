@@ -107,5 +107,11 @@ public class ArticleDaoImpl implements ArticleDao {
 		execute();
 		return mysqlFactory.findArticleByQuery(criterion, sort, page, size);
 	}
+
+	public int findArticleCount(Criterion criterion) {
+		execute();
+		String partCount = mysqlFactory.findCount(criterion);
+		return Integer.parseInt(partCount);
+	}
 	
 }

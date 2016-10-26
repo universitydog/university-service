@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -115,6 +117,23 @@ public class ArticleBizImpl implements ArticleBiz {
 		}
 		int tempCount = totalCount / size;
 		return totalCount % size == 0 ? tempCount : tempCount + 1;
+	}
+
+	public ServiceResponseUtils<List<ArticleSimple>> findArticleByList(String authorId, int page, int size,
+			String sortName) {
+		Criterion partCri = Restrictions.eq("authorId", authorId);
+		List<Article> partArticles = articleDaoImpl.findArticleByQuery(partCri, Order.desc("inputDate"), page, size);
+		int totalCount = articleDaoImpl.findArticleCount(partCri);
+		int totalPage = countTotal(size, totalCount);
+		
+		List<ArticleSimple> partArticleSimple = constructArticleSimple(partArticles);
+		ServiceResponseUtils<List<ArticleSimple>> partResponse = new ServiceResponseUtils<List<ArticleSimple>>();
+		if (CollectionUtils.isNotEmpty(partArticles)) {
+			partResponse = constructServiceResponse(ServiceResponseCode.SUCCESS, partArticleSimple, page, size, totalPage);
+		} else {
+			partResponse = constructServiceResponse(ServiceResponseCode.WARN, partArticleSimple, page, size, totalPage);
+		}
+		return partResponse;
 	}
 
 }

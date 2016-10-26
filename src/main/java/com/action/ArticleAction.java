@@ -38,26 +38,6 @@ public class ArticleAction {
 	@Autowired
 	private ArticleBiz articleBizImpl;
 
-	public ArticleAction() {
-//		serviceUtils = (ServiceResponse) XmlRegisterUtil.getBean("service");
-//		articleBizImpl = (ArticleBiz) XmlRegisterUtil.getBean("articleBizImpl");
-	}
-
-	/**
-	 * 保存文章
-	 * 
-	 * @param token
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "article", method = RequestMethod.POST)
-	@ResponseBody
-	public ServiceResponse saveAriticle(@RequestHeader("token") String token,
-			@RequestBody Map<String, Object> request) {
-		// service = articleBiz.addArticle(request);
-		return null;
-	}
-
 	/**
 	 * 查询博主列表文章
 	 * 
@@ -70,13 +50,13 @@ public class ArticleAction {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "article/{authorId}", params = {"page", "size"}, method = RequestMethod.GET)
-	@ResponseBody
-	public ServiceResponse findAriticle(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
-			@PathVariable("authorId") String authorId) {
-//		service = articleBiz.findByList(page, size, authorId);
-		return null;
-	}
+//	@RequestMapping(value = "article/{authorId}", params = {"page", "size"}, method = RequestMethod.GET)
+//	@ResponseBody
+//	public ServiceResponse findAriticle(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
+//			@PathVariable("authorId") String authorId) {
+////		service = articleBiz.findByList(page, size, authorId);
+//		return null;
+//	}
 
 	/**
 	 * 搜索博主列表文章
@@ -88,17 +68,17 @@ public class ArticleAction {
 	 *            作者Id
 	 * @return
 	 */
-	@RequestMapping(value = "article/{authorId}/search", params = {"sea", "page", "size"}, method = RequestMethod.GET)
-	@ResponseBody
-	public ServiceResponse findAriticle(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
-			@RequestParam(value = "sea") String sea, @PathVariable(value = "authorId") String authorId) {
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^search:" + sea);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^authorId:" + authorId);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^page:" + page);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^size:" + size);
-//		service = articleBiz.findByList(page, size, authorId, sea);
-		return null;
-	}
+//	@RequestMapping(value = "article/{authorId}/search", params = {"sea", "page", "size"}, method = RequestMethod.GET)
+//	@ResponseBody
+//	public ServiceResponse findAriticle(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
+//			@RequestParam(value = "sea") String sea, @PathVariable(value = "authorId") String authorId) {
+//		System.out.println("^^^^^^^^^^^^^^^^^^^^^^search:" + sea);
+//		System.out.println("^^^^^^^^^^^^^^^^^^^^^^authorId:" + authorId);
+//		System.out.println("^^^^^^^^^^^^^^^^^^^^^^page:" + page);
+//		System.out.println("^^^^^^^^^^^^^^^^^^^^^^size:" + size);
+////		service = articleBiz.findByList(page, size, authorId, sea);
+//		return null;
+//	}
 	
 	/** 
 	 * 首页文章列表查询， 默认使用inputDate倒序排列

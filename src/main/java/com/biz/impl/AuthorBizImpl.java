@@ -33,7 +33,7 @@ public class AuthorBizImpl implements AuthorBiz {
 
 	@Autowired
 	private AuthorDao authorDaoImpl;
-
+	
 	public ServiceResponseUtils<List<AuthorSimple>> findAuthorByList(int page, int size, String sortName) {
 		List<Author> partAuthors = authorDaoImpl.findAuthorByQuery(null, Order.desc(sortName), page, size);
 		int totalCount = authorDaoImpl.findAuthorCount();
@@ -97,7 +97,7 @@ public class AuthorBizImpl implements AuthorBiz {
 		} else {
 			partAuthorSimpeResponse.setMsg(ServiceResponseMsg.WARN + " | 查询数据为空");
 		}
-		return null;
+		return partAuthorSimpeResponse;
 	}
 
 }

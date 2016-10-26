@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DataRegistry {
 	
-	private static ApplicationContext ac = new ClassPathXmlApplicationContext("com/application/spring/applicationContext-spring.xml");
+	private static ApplicationContext ac = new ClassPathXmlApplicationContext("com/application/spring/applicationContext.xml");
 	
 	private DataRegistry() {}
 	

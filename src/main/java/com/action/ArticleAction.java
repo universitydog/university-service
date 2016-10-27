@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,25 +77,19 @@ public class ArticleAction {
 	 * @return
 	 * @throws UnsupportedEncodingException 
 	 */
-	@RequestMapping(value = "article/search", method = RequestMethod.GET)
+	@RequestMapping(value = "article/search", method = RequestMethod.POST)
 	@ResponseBody
-	public ServiceResponseUtils search(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
-			@RequestParam(value = "sea") String sea, @RequestParam(value = "authorId") String authorId, HttpServletRequest request) throws UnsupportedEncodingException {
-		String partSea = new String(sea.getBytes("ISO-8859-1"), "UTF-8");
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^search:" + sea);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^authorId:" + authorId);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^page:" + page);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^size:" + size);
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^partSea:" + partSea);
-		Enumeration<String> en = request.getHeaderNames();
-		for (;en.hasMoreElements();) {
-			System.out.println("ttm | " + request.getHeader(en.nextElement()));
-		}
+	public ServiceResponseUtils search(@RequestBody Map<String, Object> request) throws UnsupportedEncodingException {
+		System.out.println("ttm | " + Json.toJson(request));
+		String sea = (String) request.get("sea");
+		String authorId = (String) request.get("authorId");
+		String pageStr = (String) request.get("page");
+		String sizeStr = (String) request.get("size");
+		Integer page = Integer.valueOf(pageStr);
+		Integer size = Integer.valueOf(sizeStr);
 		
-		String a = request.getParameter("sea");
-		System.out.println("ttm |" + a);
 		ServiceResponseUtils<List<ArticleSimple>> partResponse = new ServiceResponseUtils<List<ArticleSimple>>();
-		partResponse = articleBizImpl.findArticleByList(partSea, authorId, page, size, "inputDate");
+		partResponse = articleBizImpl.findArticleByList(sea, authorId, page, size, "inputDate");
 		return partResponse;
 	}
 

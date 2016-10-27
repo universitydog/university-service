@@ -1,5 +1,7 @@
 package com.action;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.ArticleBiz;
+import com.fasterxml.jackson.core.JsonToken;
 import com.orm.ArticleSimple;
 import com.ttm.service.ServiceResponse;
+import com.ttm.util.Json;
 import com.util.ServiceResponseUtils;
 import com.util.VersionHelper;
 
@@ -70,19 +74,27 @@ public class ArticleAction {
 	 * @param authorId
 	 *            作者Id
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	@RequestMapping(value = "article/search", params = { "sea", "authorId", "page", "size" }, method = RequestMethod.POST)
+	@RequestMapping(value = "article/search", method = RequestMethod.GET)
 	@ResponseBody
 	public ServiceResponseUtils search(@RequestParam(value = "page") Integer page, @RequestParam("size") Integer size,
-			@RequestParam(value = "sea") String sea, @RequestParam(value = "authorId") String authorId, HttpServletRequest request) {
+			@RequestParam(value = "sea") String sea, @RequestParam(value = "authorId") String authorId, HttpServletRequest request) throws UnsupportedEncodingException {
+		String partSea = new String(sea.getBytes("ISO-8859-1"), "UTF-8");
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^search:" + sea);
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^authorId:" + authorId);
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^page:" + page);
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^size:" + size);
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^partSea:" + partSea);
+		Enumeration<String> en = request.getHeaderNames();
+		for (;en.hasMoreElements();) {
+			System.out.println("ttm | " + request.getHeader(en.nextElement()));
+		}
+		
 		String a = request.getParameter("sea");
 		System.out.println("ttm |" + a);
 		ServiceResponseUtils<List<ArticleSimple>> partResponse = new ServiceResponseUtils<List<ArticleSimple>>();
-		partResponse = articleBizImpl.findArticleByList(sea, authorId, page, size, "inputDate");
+		partResponse = articleBizImpl.findArticleByList(partSea, authorId, page, size, "inputDate");
 		return partResponse;
 	}
 

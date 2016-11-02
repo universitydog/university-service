@@ -90,7 +90,7 @@ public class ArticleBizImpl implements ArticleBiz {
 	public ServiceResponseUtils<List<ArticleSimple>> constructServiceResponse(int code,
 			List<ArticleSimple> articleSimples, int page, int size, int totalPage) {
 		ServiceResponseUtils<List<ArticleSimple>> partResponse = new ServiceResponseUtils<List<ArticleSimple>>();
-		partResponse.setCode(code);
+		partResponse.setRe(code);
 		if (code == ServiceResponseCode.SUCCESS) {
 			partResponse.setData(articleSimples);
 			partResponse.setPage(page);

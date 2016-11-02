@@ -88,7 +88,7 @@ public class AuthorBizImpl implements AuthorBiz {
 	public ServiceResponseUtils<List<AuthorSimple>> constructServiceResponse(int code, List<AuthorSimple> authorSimples,
 			int page, int size, int totalPage) {
 		ServiceResponseUtils<List<AuthorSimple>> partAuthorSimpeResponse = new ServiceResponseUtils<List<AuthorSimple>>();
-		partAuthorSimpeResponse.setCode(code);
+		partAuthorSimpeResponse.setRe(code);
 		if (code == ServiceResponseCode.SUCCESS) {
 			partAuthorSimpeResponse.setData(authorSimples);
 			partAuthorSimpeResponse.setPage(page);

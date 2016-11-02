@@ -8,7 +8,7 @@ package com.util;
  */
 public class ServiceResponse<T> {
 
-	private int code;
+	private int re;
 	private T data;
 	private String msg;
 
@@ -16,27 +16,27 @@ public class ServiceResponse<T> {
 	 * 默认获取 成功
 	 */
 	public ServiceResponse() {
-		this.code = ServiceResponseCode.SUCCESS;
+		this.re = ServiceResponseCode.SUCCESS;
 		this.msg = ServiceResponseMsg.SUCCESS;
 	}
 
 	/**
-	 * @param code
+	 * @param re
 	 *            状态码
 	 * @param msg
 	 *            消息
 	 */
-	public ServiceResponse(int code, String msg) {
-		this.code = code;
+	public ServiceResponse(int re, String msg) {
+		this.re = re;
 		this.msg = msg;
 	}
 
-	public int getCode() {
-		return code;
+	public int getRe() {
+		return re;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setRe(int re) {
+		this.re = re;
 	}
 
 	public T getData() {

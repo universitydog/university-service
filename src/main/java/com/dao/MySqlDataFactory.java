@@ -35,16 +35,13 @@ public class MySqlDataFactory<T> {
 	
 	private static MySqlDataFactory single;;
 	
-	private MySqlDataFactory() {};
-	
-	private MySqlDataFactory(Class name) {
-		this.name = name;
+	private MySqlDataFactory() {
 		this.size = 20;
-	}
+	};
 	
-	public static MySqlDataFactory getFactory(Class name) {
+	public static MySqlDataFactory getFactory() {
 		if (single == null) {
-			single = new MySqlDataFactory(name);
+			single = new MySqlDataFactory();
 		}
 		System.out.println(single.toString());
 		return single;

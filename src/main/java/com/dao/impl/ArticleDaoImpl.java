@@ -24,7 +24,8 @@ public class ArticleDaoImpl implements ArticleDao {
 
 	public void execute() {
 		//加载工厂类
-		mysqlFactory = MySqlDataFactory.getFactory(Article.class);
+		mysqlFactory = MySqlDataFactory.getFactory();
+		mysqlFactory.setName(Article.class);
 	}
 
 	public Article findById(Integer id) {

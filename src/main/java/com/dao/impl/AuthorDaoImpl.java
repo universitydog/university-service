@@ -28,7 +28,8 @@ public class AuthorDaoImpl implements AuthorDao {
 	private MySqlDataFactory<Author> mySqlFactory;
 	
 	public void execute() {
-		mySqlFactory = MySqlDataFactory.getFactory(Author.class);
+		mySqlFactory = MySqlDataFactory.getFactory();
+		mySqlFactory.setName(Author.class);
 	}
 	
 	public List<Author> findAuthorByQuery(Criterion criterion, Order sort, int page, int size) {
